@@ -6,15 +6,15 @@ class KorFin(AbsTaskClassification):
     metadata = TaskMetadata(
         name="KorFin",
         dataset={
-            "path": "amphora/korfin-asc",
-            "revision": "07cc4a29341ef26e8614ae1139847f4d4888727d",
+            "path": "amphora/korfin-asc-test",
+            "revision": "1266fa135fffdf14e7857df3312bf07941f2b17d",
         },
         description="The KorFin-ASC is an extension of KorFin-ABSA, which is a financial sentiment analysis dataset including 8818 samples with (aspect, polarity) pairs annotated. The samples were collected from KLUE-TC and analyst reports from Naver Finance.",
         reference="https://huggingface.co/datasets/amphora/korfin-asc",
         type="Classification",
         category="s2s",
         modalities=["text"],
-        eval_splits=["test"],
+        eval_splits=["train"],
         eval_langs=["kor-Hang"],
         main_score="accuracy",
         date=(
@@ -36,8 +36,8 @@ class KorFin(AbsTaskClassification):
         }
         """,
         descriptive_stats={
-            "n_samples": {"test": 2048},
-            "avg_character_length": {"test": 75.28},
+            "n_samples": {"test": 3795},
+            "avg_character_length": {"test": 90.99},
         },
     )
 
@@ -46,5 +46,5 @@ class KorFin(AbsTaskClassification):
             {"SRC": "text", "SENTIMENT": "label"}
         ).remove_columns(["SID", "TYPE", "ASPECT"])
         self.dataset = self.stratified_subsampling(
-            self.dataset, seed=self.seed, splits=["test"]
+            self.dataset, seed=self.seed, splits=["train"]
         )
